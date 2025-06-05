@@ -12,7 +12,10 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "outlookcalendar2jira",
-            path: "TimeLogger"
+            path: "TimeLogger",
+            linkerSettings: [
+                .linkedFramework("EventKit")
+            ]
         ),
         .testTarget(
             name: "TimeLoggerTests",
