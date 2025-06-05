@@ -3,7 +3,7 @@ import Foundation
 import EventKit
 
 actor MacCalendarService {
-    private let store = EKEventStore()
+    nonisolated(unsafe) let store = EKEventStore()
 
     func fetchEvents(start: Date, end: Date) async throws -> [OutlookEvent] {
         try await store.requestAccess(to: .event)
