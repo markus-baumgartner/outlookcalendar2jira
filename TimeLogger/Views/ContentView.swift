@@ -4,16 +4,33 @@ struct ContentView: View {
     @StateObject private var vm = EventListVM()
 
     var body: some View {
-        Table(vm.rows) {
-            TableColumn("Start") { event in
-                Text(event.start.formatted(date: .numeric, time: .shortened))
+        VStack {
+            Table($vm.rows) {
+                TableColumn("Start") { $row in
+                    Text(row.wrappedValue.start.formatted(date: .numeric, time: .shortened))
+                }
+                TableColumn("End") { $row in
+                    Text(row.wrappedValue.end.formatted(date: .numeric, time: .shortened))
+                }
+                TableColumn("Duration") { $row in
+                    Text(row.wrappedValue.duration.formatted())
+                }
+                TableColumn("Subject") { $row in
+                    Text(row.wrappedValue.subject)
+                }
+                TableColumn("Jira Issue") { $row in
+                    TextField("", text: Binding(
+                        get: { row.wrappedValue.issueKey },
+                        set: { row.wrappedValue.issueKey = $0 }
+                    ))
+                }
             }
-            TableColumn("End") { event in
-                Text(event.end.formatted(date: .numeric, time: .shortened))
+            .frame(minWidth: 800, minHeight: 400)
+
+            Button("Log All") {
+                Task { await vm.logAll() }
             }
-            TableColumn("Subject", value: \.subject)
         }
-        .frame(minWidth: 800, minHeight: 400)
         .task {
             let calendar = Calendar.current
             let start = calendar.startOfDay(for: Date())

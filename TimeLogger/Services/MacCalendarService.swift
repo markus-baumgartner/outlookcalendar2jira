@@ -10,14 +10,15 @@ actor MacCalendarService {
         let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
         let events = store.events(matching: predicate)
         return events.map { event in
-            OutlookEvent(
+            let detected = event.notes?.firstJiraIssue() ?? event.title?.firstJiraIssue()
+            return OutlookEvent(
                 id: event.eventIdentifier,
                 subject: event.title ?? "",
                 bodyPreview: event.notes,
                 start: event.startDate,
                 end: event.endDate,
                 overrideIssueKey: nil,
-                detectedIssueKey: event.title?.firstJiraIssue()
+                detectedIssueKey: detected
             )
         }
     }

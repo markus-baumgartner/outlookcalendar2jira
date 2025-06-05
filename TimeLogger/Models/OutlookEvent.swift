@@ -8,4 +8,14 @@ struct OutlookEvent: Identifiable, Decodable {
     let end: Date
     var overrideIssueKey: String?
     var detectedIssueKey: String?
+    var logged: Bool = false
+
+    var issueKey: String {
+        get { overrideIssueKey ?? detectedIssueKey ?? "" }
+        set { overrideIssueKey = newValue }
+    }
+
+    var duration: TimeInterval {
+        end.timeIntervalSince(start)
+    }
 }
