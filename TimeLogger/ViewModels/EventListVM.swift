@@ -27,7 +27,8 @@ final class EventListVM: ObservableObject {
                 comment: rows[index].subject
             )
             do {
-                try await jira.log(worklog: worklog, to: key, settings: settings)
+                let config = settings.config
+                try await jira.log(worklog: worklog, to: key, config: config)
                 rows[index].logged = true
             } catch {
                 // TODO: handle error
