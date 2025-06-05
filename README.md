@@ -1,6 +1,6 @@
 # Outlook Calendar to Jira
 
-This project provides a SwiftUI-based macOS application that reads calendar events and logs work to Jira. The latest code demonstrates fetching events from the macOS Calendar using EventKit instead of Outlook. The code is a minimal skeleton showing the overall structure.
+This project provides a SwiftUI-based macOS application that reads calendar events and logs work to Jira. The application fetches events from the macOS Calendar using EventKit instead of Outlook. When launched, it now displays today's meetings in a table.
 
 ## Building
 
