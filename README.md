@@ -5,3 +5,15 @@ This project provides a SwiftUI-based macOS application that reads calendar even
 ## Building
 
 Use Swift Package Manager with macOS 13 or later. Some components rely on frameworks unavailable on Linux, so builds must run on macOS.
+
+## Local Jira for testing
+
+A simple `docker-compose.yml` is included for running Jira locally. Start the
+container with:
+
+```bash
+docker compose up -d
+```
+
+The container exposes Jira on `http://localhost:8080` with default credentials
+`admin`/`admin`. The application is preconfigured to use these credentials.
